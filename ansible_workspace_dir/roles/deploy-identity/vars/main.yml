@@ -1,0 +1,25 @@
+---
+# vars file for deploy-sb-ext
+# For script
+template_compose_file_name: compose-file.j2
+template_env_file_name: env.j2
+compose_file_name: "{{ service_identity_service }}.yml"
+env_file_name: "{{ service_identity_service }}.env"
+compose_file_deployment_location: "{{ compose_files_dir }}/{{ compose_file_name }}"
+env_file_deployment_location: "{{ env_files_dir }}/{{ env_file_name }}"
+user_friendly_name: identity
+
+docker_port: "{{ service_identity_docker_port }}"
+host_port: "{{ service_identity_host_port }}"
+image_name: "{{ image_identity_service }}"
+tag: "{{ tags_identity_service }}"
+replicas: "{{ service_replicas_identity_service }}"
+network_alias_name: "{{ network_alias_identity_service }}"
+docker_service_stack_name: ulp
+docker_service_name: "{{ service_identity_service }}"
+force_reload: "{{ force_reload_identity_service }}"
+host_logs_location: "{{ identity_logs }}"
+docker_logs_location: /logs
+
+# Your credentials on the vault
+credentials: "{{ lookup('hashi_vault', 'secret={{ identity_secret_path }}', url=VAULT_ADDR, token=VAULT_TOKEN) }}"

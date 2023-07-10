@@ -1,0 +1,32 @@
+---
+# Update variables for each service here
+
+service_identity_service: identity
+service_identity_host_port: 3000
+service_identity_docker_port: 3332
+network_alias_identity_service: identity
+image_identity_service: samagragovernance/identity
+identity_logs: /mydata/logs/identity
+force_reload_identity_service: true
+identity_secret_path: kv/data/ulp/identity
+service_replicas_identity_service: 1
+
+service_schema_service: schema
+service_schema_host_port: 3001
+service_schema_docker_port: 3000
+network_alias_schema_service: schema
+image_schema_service: samagragovernance/schema
+schema_logs: /mydata/logs/schema
+force_reload_schema_service: true
+schema_secret_path: kv/data/ulp/schema
+service_replicas_schema_service: 1
+
+service_credential_service: credential
+service_credential_host_port: 3002
+service_credential_docker_port: 3333
+network_alias_credential_service: credential
+image_credential_service: samagragovernance/credential
+credential_logs: /mydata/logs/credential
+force_reload_credential_service: true
+credential_secret_path: kv/data/ulp/credential
+service_replicas_credential_service: 1

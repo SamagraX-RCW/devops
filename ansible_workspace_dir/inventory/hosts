@@ -1,0 +1,11 @@
+[dev]
+# Your server's IP goes here
+localhost
+
+[all:vars]
+ansible_user=root
+
+# To run ansible playbooks locally, comment the former lines and uncomment the following 
+
+# localhost 
+# ansible_connection=local
