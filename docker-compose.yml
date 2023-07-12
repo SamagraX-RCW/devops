@@ -1,0 +1,40 @@
+version: '3'
+services:
+  jenkins:
+    image: jenkins/jenkins:lts
+    user: 1000:1000 #set user to root to avoid permission issues
+    ports:
+      - 8080:8080 #expose port 8080 to host
+    volumes:
+      - JENKINS_DATA:/var/jenkins_home #mount volume to persist data
+      - ./jobs/RCW:/var/jenkins_home/jobs/RCW 
+    networks:
+      - jenkins_network  #network to communicate with other services
+
+  vault:
+    image: vault:1.13.3 #feel free to use latest version since there is not latest tag
+    ports:
+      - 8200:8200 #expose port 8200 to host
+    volumes:
+      - VAULT_DATA:/vault/data #mount volume to persist data
+    cap_add:
+      - IPC_LOCK
+    networks:
+      - jenkins_network #network to communicate with other services
+
+  docker-registry:
+    image: registry:2
+    ports:
+      - 6000:6000 #expose port 5000 to host
+    volumes:
+      - REGISTRY_DATA:/var/lib/registry #mount volume to persist data
+    networks:
+      - jenkins_network #network to communicate with other services
+
+networks:
+  jenkins_network:
+
+volumes:
+  JENKINS_DATA:
+  VAULT_DATA:
+  REGISTRY_DATA:
