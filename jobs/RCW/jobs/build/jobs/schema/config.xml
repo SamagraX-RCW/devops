@@ -1,25 +1,16 @@
 <?xml version='1.1' encoding='UTF-8'?>
-<org.jenkinsci.plugins.workflow.multibranch.WorkflowMultiBranchProject plugin="workflow-multibranch@716.vc692a_e52371b_">
+<org.jenkinsci.plugins.workflow.multibranch.WorkflowMultiBranchProject plugin="workflow-multibranch@756.v891d88f2cd46">
   <actions/>
   <description></description>
-  <properties>
-    <com.datapipe.jenkins.vault.configuration.FolderVaultConfiguration plugin="hashicorp-vault-plugin@359.v2da_3b_45f17d5">
-      <configuration>
-        <vaultUrl>http://64.227.185.154/:8200</vaultUrl>
-        <failIfNotFound>true</failIfNotFound>
-        <skipSslVerification>false</skipSslVerification>
-        <timeout>60</timeout>
-      </configuration>
-    </com.datapipe.jenkins.vault.configuration.FolderVaultConfiguration>
-  </properties>
-  <folderViews class="jenkins.branch.MultiBranchProjectViewHolder" plugin="branch-api@2.1071.v1a_188a_562481">
+  <properties/>
+  <folderViews class="jenkins.branch.MultiBranchProjectViewHolder" plugin="branch-api@2.1122.v09cb_8ea_8a_724">
     <owner class="org.jenkinsci.plugins.workflow.multibranch.WorkflowMultiBranchProject" reference="../.."/>
   </folderViews>
   <healthMetrics/>
-  <icon class="jenkins.branch.MetadataActionFolderIcon" plugin="branch-api@2.1071.v1a_188a_562481">
+  <icon class="jenkins.branch.MetadataActionFolderIcon" plugin="branch-api@2.1122.v09cb_8ea_8a_724">
     <owner class="org.jenkinsci.plugins.workflow.multibranch.WorkflowMultiBranchProject" reference="../.."/>
   </icon>
-  <orphanedItemStrategy class="com.cloudbees.hudson.plugins.folder.computed.DefaultOrphanedItemStrategy" plugin="cloudbees-folder@6.800.v71307ca_b_986b">
+  <orphanedItemStrategy class="com.cloudbees.hudson.plugins.folder.computed.DefaultOrphanedItemStrategy" plugin="cloudbees-folder@6.815.v0dd5a_cb_40e0e">
     <pruneDeadBranches>true</pruneDeadBranches>
     <daysToKeep>-1</daysToKeep>
     <numToKeep>-1</numToKeep>
@@ -27,15 +18,15 @@
   </orphanedItemStrategy>
   <triggers/>
   <disabled>false</disabled>
-  <sources class="jenkins.branch.MultiBranchProject$BranchSourceList" plugin="branch-api@2.1071.v1a_188a_562481">
+  <sources class="jenkins.branch.MultiBranchProject$BranchSourceList" plugin="branch-api@2.1122.v09cb_8ea_8a_724">
     <data>
       <jenkins.branch.BranchSource>
-        <source class="org.jenkinsci.plugins.github_branch_source.GitHubSCMSource" plugin="github-branch-source@1701.v00cc8184df93">
+        <source class="org.jenkinsci.plugins.github_branch_source.GitHubSCMSource" plugin="github-branch-source@1728.v859147241f49">
           <id>de4b53b7-d39f-4807-b859-c61bf25808d0</id>
           <apiUri>https://api.github.com</apiUri>
-          <repoOwner>Unified-Learner-Passbook</repoOwner>
-          <repository>Cred-Schema-MS</repository>
-          <repositoryUrl>https://github.com/Unified-Learner-Passbook/Cred-Schema-MS</repositoryUrl>
+          <repoOwner>SamagraX-RCW</repoOwner>
+          <repository>schema</repository>
+          <repositoryUrl>https://github.com/SamagraX-RCW/schema</repositoryUrl>
           <traits>
             <org.jenkinsci.plugins.github__branch__source.BranchDiscoveryTrait>
               <strategyId>1</strategyId>
