@@ -1,34 +1,20 @@
 <?xml version='1.1' encoding='UTF-8'?>
-<com.cloudbees.hudson.plugins.folder.Folder plugin="cloudbees-folder@6.800.v71307ca_b_986b">
+<com.cloudbees.hudson.plugins.folder.Folder plugin="cloudbees-folder@6.815.v0dd5a_cb_40e0e">
   <actions/>
   <description></description>
   <properties>
-    <com.datapipe.jenkins.vault.configuration.FolderVaultConfiguration plugin="hashicorp-vault-plugin@359.v2da_3b_45f17d5">
-      <configuration>
-        <failIfNotFound>true</failIfNotFound>
-        <skipSslVerification>false</skipSslVerification>
-        <timeout>60</timeout>
-      </configuration>
-    </com.datapipe.jenkins.vault.configuration.FolderVaultConfiguration>
     <com.cloudbees.hudson.plugins.folder.properties.FolderCredentialsProvider_-FolderCredentialsProperty>
       <domainCredentialsMap class="hudson.util.CopyOnWriteMap$Hash">
         <entry>
-          <com.cloudbees.plugins.credentials.domains.Domain plugin="credentials@1214.v1de940103927">
+          <com.cloudbees.plugins.credentials.domains.Domain plugin="credentials@1254.vb_96f366e7b_a_d">
             <specifications/>
           </com.cloudbees.plugins.credentials.domains.Domain>
           <java.util.concurrent.CopyOnWriteArrayList>
             <org.jenkinsci.plugins.plaincredentials.impl.StringCredentialsImpl plugin="plain-credentials@143.v1b_df8b_d3b_e48">
-              <id>docker_server</id>
-              <description>docker_server</description>
-              <secret>{AQAAABAAAAAgk7aKp8UiwwmlkJzAaoE9w5bokieBQF0uzb7NQxhFlsdwN65U7fjI89i+BmBD97LG}</secret>
+              <id>docker_registry</id>
+              <description>Private Registry URL where builds will be pushed too. </description>
+              <secret>{AQAAABAAAAAg7VwJQhApvkq6kegd/Rq99ggsqm+XznBJlxLVuAcierYU/wdJjvyXNjNNhA4W3bJk}</secret>
             </org.jenkinsci.plugins.plaincredentials.impl.StringCredentialsImpl>
-            <com.cloudbees.plugins.credentials.impl.UsernamePasswordCredentialsImpl plugin="credentials@1214.v1de940103927">
-              <id>tushar5526</id>
-              <description></description>
-              <username>AbhilashKD</username>
-              <password>{AQAAABAAAAAw+gGW+KrFJXmNhdkGcF8/aaXFTkweK+5n+0Dthmvx8EuBCBCmtV19ChxQL6ADAy+Aa3CoPlMcCTKR6qfhJfPpZw==}</password>
-              <usernameSecret>true</usernameSecret>
-            </com.cloudbees.plugins.credentials.impl.UsernamePasswordCredentialsImpl>
           </java.util.concurrent.CopyOnWriteArrayList>
         </entry>
       </domainCredentialsMap>
