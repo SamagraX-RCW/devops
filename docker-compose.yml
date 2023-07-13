@@ -2,12 +2,13 @@ version: '3'
 services:
   jenkins:
     image: jenkins/jenkins:lts
-    user: 1000:1000 #set user to root to avoid permission issues
+    user: root #set user to root to avoid permission issues
     ports:
       - 8080:8080 #expose port 8080 to host
     volumes:
       - JENKINS_DATA:/var/jenkins_home #mount volume to persist data
-      - ./jobs/RCW:/var/jenkins_home/jobs/RCW 
+      - ./jobs/RCW:/var/jenkins_home/jobs/RCW
+      - /var/run/docker.sock:/var/run/docker.sock #mount docker socket to communicate with docker daemon
     networks:
       - jenkins_network  #network to communicate with other services
 
@@ -25,7 +26,7 @@ services:
   docker-registry:
     image: registry:2
     ports:
-      - 6000:6000 #expose port 5000 to host
+      - 6000:5000 #expose port 5000 to host
     volumes:
       - REGISTRY_DATA:/var/lib/registry #mount volume to persist data
     networks:
