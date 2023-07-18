@@ -1,7 +1,9 @@
 version: '3'
 services:
   jenkins:
-    image: jenkins/jenkins:lts
+    build:
+      context: .
+      dockerfile: Dockerfile
     user: root #set user to root to avoid permission issues
     ports:
       - 8080:8080 #expose port 8080 to host

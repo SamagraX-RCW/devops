@@ -30,17 +30,3 @@ if ! command -v docker &> /dev/null; then
 else
     echo "Docker is already installed."
 fi
-
-sudo apt-get install -y python3 python3-pip
-
-# Install base dependencies for Ansible roles
-sudo apt install ansible
-
-# check ansible is installed
-if ! command -v ansible &> /dev/null; then
-    echo "Ansible is installed but is not in the PATH. Adding Ansible to PATH..."
-    export PATH=$PATH:$HOME/.local/bin" 
-    echo "Ansible installed successfully!"
-else
-    echo "Ansible is already installed & is in the PATH."
-fi
