@@ -11,6 +11,7 @@ services:
       - JENKINS_DATA:/var/jenkins_home #mount volume to persist data
       - ./jobs/RCW:/var/jenkins_home/jobs/RCW
       - /var/run/docker.sock:/var/run/docker.sock #mount docker socket to communicate with docker daemon
+      - ./ansible_workspace_dir:/var/jenkins_home/ansible_workspace_dir
     networks:
       - jenkins_network  #network to communicate with other services
 
