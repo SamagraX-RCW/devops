@@ -21,19 +21,32 @@ services:
       - 8200:8200 #expose port 8200 to host
     volumes:
       - VAULT_DATA:/vault/data #mount volume to persist data
-    cap_add:
-      - IPC_LOCK
+    cap_add:     #add capabilities to container
+      - IPC_LOCK #allow vault to lock memory
     networks:
       - jenkins_network #network to communicate with other services
 
   docker-registry:
     image: registry:2
     ports:
-      - 6000:5000 #expose port 5000 to host
+      - 5000:5000 #expose port 5000 to host
     volumes:
       - REGISTRY_DATA:/var/lib/registry #mount volume to persist data
     networks:
       - jenkins_network #network to communicate with other services
+
+  nginx-reverse-proxy:
+    image: nginx
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ./registry-configs/registry_auth.conf:/etc/nginx/nginx.conf:ro
+      - ./registry-configs/docker-registry.crt:/etc/nginx/docker-registry.crt:ro # Mount the SSL certificate file
+      - ./registry-configs/docker-registry.key:/etc/nginx/docker-registry.key:ro # Mount the SSL private key file
+      - ./registry-configs/auth:/path/to/htpasswd_file:ro # Mount the htpasswd file
+    networks:
+      - jenkins_network
 
 networks:
   jenkins_network:

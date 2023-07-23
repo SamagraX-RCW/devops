@@ -1,0 +1,19 @@
+---
+- name: Install Docker
+  apt:
+    name: docker.io
+    state: present
+  tags: docker
+
+- name: Start and enable Docker service
+  service:
+    name: docker
+    state: started
+    enabled: yes
+  tags: docker
+
+- include_tasks: swarm_init.yml
+  tags: swarm_init
+
+- include_tasks: create_overlay.yml
+  tags: create_overlay

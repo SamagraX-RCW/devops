@@ -1,0 +1,15 @@
+---
+- name: Initialize Docker Swarm as a master
+  command: docker swarm init
+  args:
+    creates: /root/.docker/docker-init.sh
+  register: swarm_init_output
+  changed_when: "'Swarm initialized' in swarm_init_output.stdout"
+  failed_when: "swarm_init_output.rc != 0"
+
+- name: Save Docker Swarm join token to a file
+  when: swarm_init_output.rc == 0
+  lineinfile:
+    path: /tmp/docker_swarm_join_token
+    create: yes
+    line: "{{ swarm_init_output.stdout_lines[-1] }}"
