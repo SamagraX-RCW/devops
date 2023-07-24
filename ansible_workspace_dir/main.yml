@@ -12,3 +12,5 @@
       tags: [deploy-schema]
     - role: deploy-identity
       tags: [deploy-identity]
+    - role: deploy-swarm-nodes
+      tags: deploy-swarm-nodes
