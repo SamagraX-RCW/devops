@@ -6,11 +6,12 @@
   vars_files:
     - "vars/main.yml"
   roles:
+    - role: deploy-swarm-nodes
+      tags: deploy-swarm-nodes
     - role: deploy-credential
       tags: [deploy-credential]
     - role: deploy-schema
       tags: [deploy-schema]
     - role: deploy-identity
       tags: [deploy-identity]
-    - role: deploy-swarm-nodes
-      tags: deploy-swarm-nodes
+

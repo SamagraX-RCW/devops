@@ -1,4 +1,10 @@
 ---
+- name: Get private key from Vault
+  ansible.builtin.shell: |
+    curl -s -H "X-Vault-Token: {{ lookup('env', 'VAULT_TOKEN') }}" \
+      {{ lookup('env', 'http://vault') }}/v1/secret/data/path/to/secret | \
+      jq -r '.data.data.private_key' > /tmp/private_key.pem
+
 - name: Install Docker
   apt:
     name: docker.io

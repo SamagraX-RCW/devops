@@ -16,7 +16,7 @@ services:
       - jenkins_network  #network to communicate with other services
 
   vault:
-    image: vault:1.13.3 #feel free to use latest version since there is not latest tag
+    image: vault:1.13.2 #feel free to use latest version since there is not latest tag
     ports:
       - 8200:8200 #expose port 8200 to host
     volumes:
@@ -32,16 +32,15 @@ services:
   docker-registry:
     image: registry:2
     ports:
-      - 5000:5000 #expose port 5000 to host
+      - 6000:5000 #expose port 5000 to host
     volumes:
       - REGISTRY_DATA:/var/lib/registry #mount volume to persist data
     networks:
       - jenkins_network #network to communicate with other services
 
   nginx-reverse-proxy:
-    image: nginx:alpine
+    image: "nginx:alpine"
     ports:
-      - 443:443
       - 80:80
     links:
       - docker-registry:docker-registry #link docker-registry service
