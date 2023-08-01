@@ -22,7 +22,7 @@ services:
     volumes:
       - VAULT_DATA:/vault/data #mount volume to persist data
       - ./registry_configs:/etc/nginx/conf.d
-      - ./vault_config/vault.json:/vault/config/vault.json #mount vault config file
+      - ./vault_config/vault-config.json:/vault/config/vault.json #mount vault config file
     cap_add:     #add capabilities to container
       - IPC_LOCK #allow vault to lock memory
     entrypoint: vault server -config=/vault/config/vault.json
@@ -32,7 +32,7 @@ services:
   docker-registry:
     image: registry:2
     ports:
-      - 6000:5000 #expose port 5000 to host
+      - 5000:5000 #expose port 5000 to host
     volumes:
       - REGISTRY_DATA:/var/lib/registry #mount volume to persist data
     networks:
@@ -42,6 +42,7 @@ services:
     image: "nginx:alpine"
     ports:
       - 80:80
+      # - 443:443 - uncomment if you want to use SSL
     links:
       - docker-registry:docker-registry #link docker-registry service
     volumes:
