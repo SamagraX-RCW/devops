@@ -1,6 +1,0 @@
----
-- name: Create the overlay network
-  command: docker network create --driver overlay overlay_network
-  args:
-    creates: /root/.docker/networks/overlay_network
-  changed_when: false

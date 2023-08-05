@@ -2,6 +2,9 @@
 
 # Function to create a new Ansible role directory structure
 create_ansible_role() {
+    # vars file path
+    vars_dir="ansible_workspace_dir/vars"
+    
     # Ask for role name
     read -p "Enter the name of the role: " role_name
 
@@ -92,6 +95,48 @@ dependencies: []
 
     # Display success message
     echo "Ansible role '${role_name}' created successfully!"
+
+
+    # Read the existing data from vars.yml into a variable
+    existing_data=$(cat templates/vars_template/main.yml)
+
+    # Extract host port and docker port into separate variables
+    host_port=$(echo "$existing_data" | awk -F ': ' '/service_service_name_host_port/ {print $2}')
+    docker_port=$(echo "$existing_data" | awk -F ': ' '/service_service_name_docker_port/ {print $2}')
+
+
+    # Loop to create vars section for each service
+        read -p "${role_name} network alias: " network_alias
+        read -p "${role_name} image: " image
+        read -p "${role_name} logs path: " logs_path
+        read -p "Force reload ${role_name} (true/false): " force_reload
+        read -p "${role_name} secret path: " secret_path
+        read -p "Number of replicas for ${role_name}: " replicas
+        
+        echo "" >> "${vars_dir}/main.yml"
+        echo "${role_name}_service: ${role_name}" >> "${vars_dir}/main.yml"
+        echo "${role_name}_host_port: ${host_port}" >> "${vars_dir}/main.yml"
+        echo "${role_name}_docker_port: ${docker_port}" >> "${vars_dir}/main.yml"
+        echo "network_alias_${role_name}_service: ${network_alias}" >> "${vars_dir}/main.yml"
+        echo "image_${role_name}_service: ${image}" >> "${vars_dir}/main.yml"
+        echo "${role_name}_logs: ${logs_path}" >> "${vars_dir}/main.yml"
+        echo "force_reload_${role_name}_service: ${force_reload}" >> "${vars_dir}/main.yml"
+        echo "${role_name}_secret_path: ${secret_path}" >> "${vars_dir}/main.yml"
+        echo "service_replicas_${role_name}_service: ${replicas}" >> "${vars_dir}/main.yml"
+
+    # Display success message
+    echo "Ansible role '${role_name}' created successfully!"
+
+    # Increase the port numbers by 1
+    new_host_port=$((host_port + 1))
+    new_docker_port=$((docker_port + 1))
+
+    # Update the data with new port numbers
+    updated_data="${existing_data/service_service_name_host_port: $host_port/service_service_name_host_port: $new_host_port}"
+    updated_data="${updated_data/service_service_name_docker_port: $docker_port/service_service_name_docker_port: $new_docker_port}"
+
+    # Write the updated data back to vars.yml file
+    echo "$updated_data" > templates/vars_template/main.yml
 }
 
 # Main script execution

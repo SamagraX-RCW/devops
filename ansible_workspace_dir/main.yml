@@ -1,17 +1,28 @@
 ---
 # - hosts: "app_north_virginia_lex_dev"
-- hosts: "{{ deploy_host_name }}"
-  become: yes
-  strategy: free
-  vars_files:
-    - "vars/main.yml"
+# - hosts: all #"{{ deploy_host_name }}"
+#   become: yes
+#   strategy: free
+#   # vars_files:
+#   #   - "vars/main.yml"
+#   roles:
+#     - role: deploy-credential
+#       tags: [deploy-credential]
+#     - role: deploy-schema
+#       tags: [deploy-schema]
+#     - role: deploy-identity
+#       tags: [deploy-identity]
+
+- hosts: all
+  become: true
   roles:
-    - role: deploy-swarm-nodes
-      tags: deploy-swarm-nodes
-    - role: deploy-credential
-      tags: [deploy-credential]
-    - role: deploy-schema
-      tags: [deploy-schema]
-    - role: deploy-identity
-      tags: [deploy-identity]
+    - docker
+- hosts: manager
+  become: true
+  roles:
+    - swarm_manager 
+- hosts: worker
+  become: true
+  roles:
+    - swarm_worker
 

@@ -1,11 +1,5 @@
-[dev]
-# Your server's IP goes here
-localhost
+[manager]
+ubuntu@ec2-15-206-125-189.ap-south-1.compute.amazonaws.com
 
-[all:vars]
-ansible_user=root
-
-# To run ansible playbooks locally, comment the former lines and uncomment the following 
-
-# localhost 
-# ansible_connection=local
+[worker]
+ubuntu@ec2-13-232-137-174.ap-south-1.compute.amazonaws.com
