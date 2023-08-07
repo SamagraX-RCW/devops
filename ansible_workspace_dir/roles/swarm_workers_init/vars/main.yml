@@ -1,0 +1,2 @@
+---
+worker_token: "{{ hostvars['localhost']['worker_token'] }}"

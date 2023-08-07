@@ -84,7 +84,7 @@ dependencies: []
   # List your role dependencies here, one per line. Be sure to remove the '[]' above,
   # if you add dependencies to this list." > "${role_dir}/meta/main.yml"
 
-    echo "# ---
+    echo "---
 # # tasks file for deploy-sb-ext" > "${role_dir}/tasks/main.yml"
 
     echo "---" > "${role_dir}/test/test.yml"

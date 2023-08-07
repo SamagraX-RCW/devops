@@ -1,8 +1,0 @@
----
-# tasks file for join_swarm
-    - name: Add Worker to manager node
-      docker_swarm:
-        state: join
-        advertise_addr: worker
-        join_token: "{{ hostvars['manager']['swarm_info']['swarm_facts']['JoinTokens']['Worker'] }}"
-        remote_addrs: [ 'manager-node:2377' ]

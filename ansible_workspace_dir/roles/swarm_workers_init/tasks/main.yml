@@ -1,0 +1,4 @@
+---
+- name: Join Swarm as a Manager
+  command: docker swarm join --token {{ worker_token }} {{ swarm_master_ip_address }}:2377
+  register: manager

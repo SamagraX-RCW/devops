@@ -30,14 +30,3 @@ credential_logs: /mydata/logs/credential
 force_reload_credential_service: true
 credential_secret_path: kv/data/ulp/credential
 service_replicas_credential_service: 1
-
-
-terminal_service: terminal
-terminal_host_port: 3003
-terminal_docker_port: 3333
-network_alias_terminal_service: asd
-image_terminal_service: asd
-terminal_logs: asd
-force_reload_terminal_service: asd
-terminal_secret_path: asd
-service_replicas_terminal_service: 2

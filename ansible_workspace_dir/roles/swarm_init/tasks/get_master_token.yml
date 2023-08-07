@@ -1,0 +1,4 @@
+---
+- name: Get Master Token
+  command: docker swarm join-token manager -q
+  register: master_token
