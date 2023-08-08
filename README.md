@@ -1,3 +1,5 @@
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/SamagraX-RCW/devops)
+
 # devops
 This repo holds the DevOps and Ansible jobs to deploy on the docker swarm along with a simpler docker-compose deployment. 
 
