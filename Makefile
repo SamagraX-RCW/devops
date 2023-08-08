@@ -1,4 +1,4 @@
-.PHONY: test
+.PHONY: compose-init
 
 compose-init:
 	wget --no-clobber https://github.com/SamagraX-RCW/identity/raw/main/vault/vault.json
