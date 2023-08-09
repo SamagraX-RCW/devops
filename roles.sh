@@ -106,10 +106,7 @@ dependencies: []
 
 
     # Loop to create vars section for each service
-        read -p "${role_name} network alias: " network_alias
         read -p "${role_name} image: " image
-        read -p "${role_name} logs path: " logs_path
-        read -p "Force reload ${role_name} (true/false): " force_reload
         read -p "${role_name} secret path: " secret_path
         read -p "Number of replicas for ${role_name}: " replicas
         
@@ -117,10 +114,10 @@ dependencies: []
         echo "${role_name}_service: ${role_name}" >> "${vars_dir}/main.yml"
         echo "${role_name}_host_port: ${host_port}" >> "${vars_dir}/main.yml"
         echo "${role_name}_docker_port: ${docker_port}" >> "${vars_dir}/main.yml"
-        echo "network_alias_${role_name}_service: ${network_alias}" >> "${vars_dir}/main.yml"
+        echo "network_alias_${role_name}_service: ${role_name}" >> "${vars_dir}/main.yml"
         echo "image_${role_name}_service: ${image}" >> "${vars_dir}/main.yml"
-        echo "${role_name}_logs: ${logs_path}" >> "${vars_dir}/main.yml"
-        echo "force_reload_${role_name}_service: ${force_reload}" >> "${vars_dir}/main.yml"
+        echo "${role_name}_logs: mydata/logs/${role_name}" >> "${vars_dir}/main.yml"
+        echo "force_reload_${role_name}_service: true" >> "${vars_dir}/main.yml"
         echo "${role_name}_secret_path: ${secret_path}" >> "${vars_dir}/main.yml"
         echo "service_replicas_${role_name}_service: ${replicas}" >> "${vars_dir}/main.yml"
 
