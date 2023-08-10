@@ -1,0 +1,5 @@
+---
+- name: Create Overlay Network
+  docker_swarm_network:
+    name: my_overlay_network
+    driver: overlay
