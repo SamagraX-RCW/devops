@@ -11,3 +11,5 @@
 
 vault.json
 setup_vault_gha.sh
+
+.env
