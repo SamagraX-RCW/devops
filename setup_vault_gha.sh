@@ -43,9 +43,9 @@ else
   # keys contains ansi escape sequences, remove them if any
   docker-compose -f "$COMPOSE_FILE" exec -T "$SERVICE_NAME" vault operator init > ansi-keys.txt
   sed 's/\x1B\[[0-9;]*[JKmsu]//g' < ansi-keys.txt  > keys.txt
-  sed -n 's/Unseal Key [1-1]\+: \(.*\)/\1/p' keys.txt > parsed-key.txt
 fi
 
+sed -n 's/Unseal Key [1-1]\+: \(.*\)/\1/p' keys.txt > parsed-key.txt
 key=$(cat parsed-key.txt)
 docker-compose -f "$COMPOSE_FILE" exec -T "$SERVICE_NAME" vault operator unseal "$key" < /dev/null
 
@@ -63,6 +63,6 @@ sed -i "s/VAULT_TOKEN:.*/VAULT_TOKEN: $root_token/" "$COMPOSE_FILE"
 
 docker-compose -f "$COMPOSE_FILE" exec -e VAULT_TOKEN=$root_token -T "$SERVICE_NAME" vault secrets enable -path=kv kv-v2
 
-echo -e "\nNOTE: KEYS ARE STORED IN parsed-keyst.txt"
+echo -e "\nNOTE: KEYS ARE STORED IN parsed-keys.txt"
 
-rm ansi-keys.txt keys.txt
+rm ansi-keys.txt
