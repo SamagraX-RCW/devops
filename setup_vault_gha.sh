@@ -71,3 +71,7 @@ echo -e "\nNOTE: KEYS ARE STORED IN parsed-keys.txt"
 if [ -f "ansi-keys.txt" ] ; then
     rm ansi-keys.txt
 fi
+
+if [ -f "parsed-key.txt" ] ; then
+    rm parsed-key.txt
+fi
