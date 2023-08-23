@@ -59,10 +59,15 @@ docker-compose -f "$COMPOSE_FILE" exec -T "$SERVICE_NAME" vault operator unseal 
 
 root_token=$(sed -n 's/Initial Root Token: \(.*\)/\1/p' keys.txt | tr -dc '[:print:]')
 
-sed -i "s/VAULT_TOKEN:.*/VAULT_TOKEN: $root_token/" "$COMPOSE_FILE"
-
-docker-compose -f "$COMPOSE_FILE" exec -e VAULT_TOKEN=$root_token -T "$SERVICE_NAME" vault secrets enable -path=kv kv-v2
+if [[ $vault_status == *"Initialized     true"* ]]; then
+    echo "Vault is initialized already. Skipping creating a KV engine"
+else
+  sed -i "s/VAULT_TOKEN:.*/VAULT_TOKEN: $root_token/" "$COMPOSE_FILE"
+  docker-compose -f "$COMPOSE_FILE" exec -e VAULT_TOKEN=$root_token -T "$SERVICE_NAME" vault secrets enable -path=kv kv-v2
+fi
 
 echo -e "\nNOTE: KEYS ARE STORED IN parsed-keys.txt"
 
-rm ansi-keys.txt
+if [ -f "ansi-keys.txt" ] ; then
+    rm ansi-keys.txt
+fi
