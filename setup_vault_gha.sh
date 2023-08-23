@@ -66,7 +66,7 @@ else
   docker-compose -f "$COMPOSE_FILE" exec -e VAULT_TOKEN=$root_token -T "$SERVICE_NAME" vault secrets enable -path=kv kv-v2
 fi
 
-echo -e "\nNOTE: KEYS ARE STORED IN parsed-keys.txt"
+echo -e "\nNOTE: KEYS ARE STORED IN keys.txt"
 
 if [ -f "ansi-keys.txt" ] ; then
     rm ansi-keys.txt
