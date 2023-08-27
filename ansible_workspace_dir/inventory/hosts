@@ -1,3 +1,5 @@
+# your master node IP address goes here
 [masters]
 
+# your worker node IP address goes here
 [workers]
