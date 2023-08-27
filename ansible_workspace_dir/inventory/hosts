@@ -2,11 +2,5 @@
 [masters]
 ubuntu@ec2-15-206-125-189.ap-south-1.compute.amazonaws.com
 
-<<<<<<< HEAD
 # your worker node IP address goes here
 [workers]
-=======
-[workers]
-ubuntu@ec2-13-232-137-174.ap-south-1.compute.amazonaws.com
-ubuntu@ec2-13-235-17-48.ap-south-1.compute.amazonaws.com
->>>>>>> parent of 058c3a9 (updated final)
