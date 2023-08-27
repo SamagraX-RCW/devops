@@ -1,6 +1,7 @@
 version: '3'
 services:
   jenkins:
+    container_name: jenkins
     build:
       context: .
       dockerfile: Dockerfile
@@ -13,9 +14,10 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock #mount docker socket to communicate with docker daemon
       - ./ansible_workspace_dir:/var/jenkins_home/ansible_workspace_dir
     networks:
-      - jenkins_network  #network to communicate with other services
+      - jenkins_network #network to communicate with other services
 
   vault:
+    container_name: vault
     image: vault:1.13.2 #feel free to use latest version since there is not latest tag
     ports:
       - 8200:8200 #expose port 8200 to host
@@ -23,13 +25,15 @@ services:
       - VAULT_DATA:/vault/data #mount volume to persist data
       - ./registry_configs:/etc/nginx/conf.d
       - ./vault_config/vault-config.json:/vault/config/vault.json #mount vault config file
-    cap_add:     #add capabilities to container
+    cap_add:
+      #add capabilities to container
       - IPC_LOCK #allow vault to lock memory
     entrypoint: vault server -config=/vault/config/vault.json
     networks:
       - jenkins_network #network to communicate with other services
 
   docker-registry:
+    container_name: registry
     image: registry:2
     ports:
       - 5000:5000 #expose port 5000 to host
@@ -39,6 +43,7 @@ services:
       - jenkins_network #network to communicate with other services
 
   nginx-reverse-proxy:
+    container_name: nginx
     image: "nginx:alpine"
     ports:
       - 80:80
@@ -46,8 +51,8 @@ services:
     links:
       - docker-registry:docker-registry #link docker-registry service
     volumes:
-      - ./registry_configs/auth:/etc/nginx/conf.d # Mount the htpasswd file
-      - ./registry_configs/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx_config/auth:/etc/nginx/conf.d # Mount the htpasswd file
+      - ./nginx_config/nginx.conf:/etc/nginx/nginx.conf
       # - ./registry-configs/registry-certificate.pem:/etc/nginx/docker-registry.pem # Mount the SSL certificate file
       # - ./registry-configs/registry-key.pem:/etc/nginx/docker-registry.pem # Mount the SSL private key file
     networks:
@@ -55,6 +60,7 @@ services:
 
 networks:
   jenkins_network:
+
 
 volumes:
   JENKINS_DATA:

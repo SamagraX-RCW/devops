@@ -1,4 +1,4 @@
-!#/bin/bash
+#!/bin/bash
 export VAULT_ADDR=http://127.0.0.1:8200
 
 init_output=$(vault operator init)
@@ -20,4 +20,7 @@ username=$(vault kv get -field=username registry-secrets/auth)
 password=$(vault kv get -field=password registry-secrets/auth)
 
 # Set environment variables inside the Jenkins container
-docker exec -it devops-jenkins-1 /bin/sh -c "export VAULT_USERNAME=$username && export VAULT_PASSWORD=$password"
+docker exec -it jenkins /bin/sh
+
+echo REGISTRY_USERNAME=$username > .env
+echo REGISTRY_PASSWORD=$password >> .env
