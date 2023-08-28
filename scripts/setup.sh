@@ -30,8 +30,6 @@ if ! command -v docker &> /dev/null; then
     sudo groupadd docker
     sudo usermod -aG docker $USER
 
-    # Install Docker Compose
-    sudo apt-get install docker-compose-plugin
     
     echo "Docker installed successfully!"
 else

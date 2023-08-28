@@ -1,0 +1,13 @@
+---
+- name: Install Services
+  hosts: master
+  become: true
+  tasks:
+    - name: Copy compose files
+      copy:
+        src: rcw-compose.yml
+        dest: ~/devops/rcw-compose.yml
+        mode: 0755
+
+    - name: Run the compose file
+      command: docker compose -f "rcw-compose.yml" up -d

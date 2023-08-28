@@ -12,5 +12,6 @@ ansi-keys.txt
 *workspace
 
 .env
+!.env.sample
 
 data
