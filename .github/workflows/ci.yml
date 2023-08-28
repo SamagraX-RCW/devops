@@ -17,4 +17,4 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Tries setting up all the services as a sanity check
-        run: make compose-init
+        run: make

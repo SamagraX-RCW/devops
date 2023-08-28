@@ -6,8 +6,11 @@
 *indexing
 
 .idea
-
+parsed-key.txt
+keys.txt
+ansi-keys.txt
 *workspace
 
-vault.json
-setup_vault_gha.sh
+.env
+
+data
