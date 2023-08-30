@@ -1,18 +1,4 @@
 ---
-- hosts: "app_north_virginia_lex_dev"
-- hosts: "{{ deploy_host_name }}"
-  become: yes
-  strategy: free
-  vars_files:
-    - "vars/main.yml"
-  roles:
-    - role: deploy-credential
-      tags: [deploy-credential]
-    - role: deploy-schema
-      tags: [deploy-schema]
-    - role: deploy-identity
-      tags: [deploy-identity]
-
 - name: Initialize Swarm
   hosts: localhost
   gather_facts: False

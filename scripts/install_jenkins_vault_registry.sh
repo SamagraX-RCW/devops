@@ -64,3 +64,21 @@ wget -O- https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/sha
 echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
 sudo apt update
 sudo apt install vault
+
+
+echo -e "\n\e[0;32m${bold}Stop Jenkins ${normal}\n"
+sudo service jenkins stop
+
+echo -e "\n\e[0;32m${bold}Removing /var/lib/jenkins/jobs ${normal}\n"
+rm -rf /var/lib/jenkins/jobs
+
+echo -e "\n\e[0;32m${bold}Making a symlink where /var/lib/jenkins/jobs/Samarth points to /home/samarth-devops/jenkins-jobs/jobs/Samarth ${normal}\n"
+mkdir -p /var/lib/jenkins/jobs
+ln -s /home/samarth-devops/jenkins-jobs/jobs/Samarth /var/lib/jenkins/jobs/Samarth
+
+echo -e "\n\e[0;32m${bold}Chown the jobs to jenkins user ${normal}\n"
+chown -R jenkins:jenkins /var/lib/jenkins/jobs
+chown -R jenkins:jenkins /home/samarth-devops/jenkins-jobs/jobs
+
+echo -e "\n\e[0;32m${bold}Restart Jenkins${normal}\n"
+systemctl restart jenkins
