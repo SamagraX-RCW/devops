@@ -1,5 +1,11 @@
 #!/bin/bash
 
+# This script does the following things
+# * Retrieves the root token from keys.txt
+# * Pulls registry username and password from vault
+# * Rename .env.example to .env
+# * Stores the username and password file as env inside the nginx container
+
 root_token=$(sed -n 's/Initial Root Token: \(.*\)/\1/p' keys.txt | tr -dc '[:print:]')
 
 VAULT_TOKEN=$root_token
@@ -9,6 +15,7 @@ username=$(vault kv get -field=username kv/registry-secrets)
 password=$(vault kv get -field=password kv/registry-secrets)
 
 # Set .env file inside the Jenkins container
-docker exec -it jenkins /bin/sh -c "cd /var/jenkins_home && echo REGISTRY_USERNAME=$username > .env && echo REGISTRY_PASSWORD=$password >> .env"
+mv ../.env.sample ../.env
+echo REGISTRY_USERNAME=$username >> .env && echo REGISTRY_PASSWORD=$password >> .env"
 
-docker exec -it nginx /bin/sh -c "cd /etc/nginx/conf.d && echo "$username:$password" > nginx.htpasswd"
+docker exec -it nginx /bin/sh -c "cd /etc/nginx/conf.d && echo '${username}:${password}' > nginx.htpasswd"

@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# This script does the following things
+# * Stores the private key and certificate file to vault
+# * Remove the SSL certificated from the location
+
 # Paths for the SSL certificate files
 PRIVATE_KEY_PATH="../nginx_config/ssl/private_key.pem"
 CERTIFICATE_PATH="../nginx_config/ssl/certificate.crt"

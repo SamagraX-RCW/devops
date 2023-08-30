@@ -39,8 +39,6 @@ services:
   docker-registry:
     container_name: registry
     image: registry:2
-    ports:
-      - 5000:5000 #expose port 5000 to host
     volumes:
       - REGISTRY_DATA:/var/lib/registry #mount volume to persist data
     networks:

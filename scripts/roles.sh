@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# This script does the following things
+# * Creates ansible template roles
+# * Create vars and other envs
+
 # Function to create a new Ansible role directory structure
 create_ansible_role() {
     # vars file path

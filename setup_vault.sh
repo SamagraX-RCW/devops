@@ -1,3 +1,12 @@
+#!/bin/bash
+
+# This script does the following things
+# * Start a vault instance with vault/vault.json configuration
+# * Unseal the vault
+# * Create a v2 kv engine 
+# * Prints the unseal keys and root token
+# * This script does not automatically unseal vault on restarts, it only works with fresh installations
+
 export VAULT_ADDR=http://127.0.0.1:8200
 
 # Function to check if Vault is ready
