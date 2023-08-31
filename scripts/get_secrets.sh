@@ -8,14 +8,17 @@
 
 root_token=$(sed -n 's/Initial Root Token: \(.*\)/\1/p' keys.txt | tr -dc '[:print:]')
 
-VAULT_TOKEN=$root_token
+export VAULT_ADDR=http://127.0.0.1:8200
+export VAULT_TOKEN=$root_token
 
 # Retrieve secrets from Vault
 username=$(vault kv get -field=username kv/registry-secrets)
 password=$(vault kv get -field=password kv/registry-secrets)
 
 # Set .env file inside the Jenkins container
-mv ../.env.sample ../.env
-echo REGISTRY_USERNAME=$username >> .env && echo REGISTRY_PASSWORD=$password >> .env"
+mv ~/devops/.env.sample ~/devops/.env
+echo "REGISTRY_USERNAME=${username}" >> .env && echo "REGISTRY_PASSWORD=${password}" >> .env
 
-docker exec -it nginx /bin/sh -c "cd /etc/nginx/conf.d && echo '${username}:${password}' > nginx.htpasswd"
+docker exec -it nginx /bin/sh -c "cd /etc/nginx/conf.d && echo ${username}:${password} > nginx.htpasswd"
+
+docker restart nginx

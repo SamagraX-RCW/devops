@@ -51,3 +51,8 @@ sudo apt install vault
 sudo apt-add-repository ppa:ansible/ansible
 sudo apt update
 sudo apt install ansible
+
+#Get public ip-address
+public_ip=$(curl -s ifconfig.co)
+
+echo "swarm_master_ip_address: ${public_ip}" >> ~/Desktop/devops/ansible_workspace_dir/roles/swarm_init/vars/main.yml
