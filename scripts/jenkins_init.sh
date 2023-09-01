@@ -67,7 +67,7 @@ curl -X POST -u "admin:$password" $url/setupWizard/createAdminUser \
      --cookie $cookie_jar \
      --data-raw "username=$username&password1=$new_password&password2=$new_password&fullname=$fullname&email=$email&Jenkins-Crumb=$only_crumb&json=%7B%22username%22%3A%20%22$username%22%2C%20%22password1%22%3A%20%22$new_password%22%2C%20%22%24redact%22%3A%20%5B%22password1%22%2C%20%22password2%22%5D%2C%20%22password2%22%3A%20%22$new_password%22%2C%20%22fullname%22%3A%20%22$fullname%22%2C%20%22email%22%3A%20%22$email%22%2C%20%22Jenkins-Crumb%22%3A%20%22$only_crumb%22%7D&core%3Aapply=&Submit=Save&json=%7B%22username%22%3A%20%22$username%22%2C%20%22password1%22%3A%20%22$new_password%22%2C%20%22%24redact%22%3A%20%5B%22password1%22%2C%20%22password2%22%5D%2C%20%22password2%22%3A%20%22$new_password%22%2C%20%22fullname%22%3A%20%22$fullname%22%2C%20%22email%22%3A%20%22$email%22%2C%20%22Jenkins-Crumb%22%3A%20%22$only_crumb%22%7D"
 
-sudo cp ~/devops/jobs/RCW /var/lib/jenkins/jobs/RCW
+sudo cp -r ~/devops/jobs/RCW /var/lib/jenkins/jobs/RCW
 
 sudo chown -R jenkins:jenkins ~/devops/jobs/RCW
 sudo chown -R jenkins:jenkins /var/lib/jenkins/jobs/RCW
