@@ -5,8 +5,6 @@ services:
     ports:
       - "3332:3332"
     depends_on:
-      # vault:
-      #   condition: service_healthy
       identity-db:
         condition: service_healthy
     environment:

@@ -51,6 +51,7 @@ sudo apt install vault
 sudo apt-add-repository ppa:ansible/ansible
 sudo apt update
 sudo apt install ansible
+sudo apt install make
 
 #Get public ip-address
 public_ip=$(curl -s ifconfig.co)
