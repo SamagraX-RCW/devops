@@ -1,6 +1,5 @@
 # your master node IP address goes here
 [masters]
-ubuntu@ec2-15-206-125-189.ap-south-1.compute.amazonaws.com
 
 # your worker node IP address goes here
 [workers]

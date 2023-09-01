@@ -1,2 +1,3 @@
 ---
 worker_token: "{{ hostvars['localhost']['worker_token'] }}"
+swarm_master_ip_address: 117.250.64.132
