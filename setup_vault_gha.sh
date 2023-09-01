@@ -65,7 +65,6 @@ if [[ $vault_status == *"Initialized     true"* ]]; then
 else
   sed -i "s/VAULT_TOKEN=.*/VAULT_TOKEN=$root_token/" ".env"
   docker exec -it $SERVICE_NAME /bin/sh -c "export VAULT_TOKEN=$root_token && export VAULT_ADDR=http://127.0.0.1:8200 && vault secrets enable -path=kv kv-v2"
-  docker exec -it $SERVICE_NAME /bin/sh -c "export VAULT_TOKEN=$root_token && export VAULT_ADDR=http://127.0.0.1:8200 && vault kv put kv/registry-secrets username=admin password=admin"
 fi
 
 echo -e "\nNOTE: KEYS ARE STORED IN keys.txt"
@@ -77,3 +76,8 @@ fi
 if [ -f "parsed-key.txt" ] ; then
     rm parsed-key.txt
 fi
+
+
+read -p "Enter username for registry: " input_username
+read -p "Enter password for registry: " input_password
+docker exec -it $SERVICE_NAME /bin/sh -c "export VAULT_TOKEN=$root_token && export VAULT_ADDR=http://127.0.0.1:8200 && vault kv put kv/registry-secrets username=$input_username password=$input_password"
