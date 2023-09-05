@@ -13,5 +13,6 @@ ansi-keys.txt
 
 .env
 !.env.sample
+.DS_Store
 
 data

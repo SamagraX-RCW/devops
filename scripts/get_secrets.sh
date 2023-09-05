@@ -16,7 +16,7 @@ username=$(vault kv get -field=username kv/registry-secrets)
 password=$(vault kv get -field=password kv/registry-secrets)
 
 # Set .env file inside the Jenkins container
-mv ~/devops/.env.sample ~/devops/.env
+cp -n ~/devops/.env.sample ~/devops/.env
 echo "REGISTRY_USERNAME=${username}" >> .env && echo "REGISTRY_PASSWORD=${password}" >> .env
 
 docker exec -it nginx /bin/sh -c "cd /etc/nginx/conf.d && echo ${username}:${password} > nginx.htpasswd"

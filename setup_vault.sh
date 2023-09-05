@@ -6,6 +6,7 @@
 # * Create a v2 kv engine 
 # * Prints the unseal keys and root token
 # * This script does not automatically unseal vault on restarts, it only works with fresh installations
+# * Stores the username and password for registry inside the vault
 
 export VAULT_ADDR=http://127.0.0.1:8200
 
@@ -72,3 +73,8 @@ fi
 if [ -f "parsed-key.txt" ] ; then
     rm parsed-key.txt
 fi
+
+read -p "Enter username for registry: " input_username
+read -p "Enter password for registry: " input_password
+
+vault kv put kv/registry-secrets username=$input_username password=$input_password"
