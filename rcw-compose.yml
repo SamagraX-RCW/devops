@@ -1,52 +1,23 @@
 version: '3'
 services:
-  vault:
-    image: vault:1.10.3
-    restart: always
-    volumes:
-      - ./vault.json:/vault/config/vault.json
-      - vault-data:/vault/file
-    environment:
-      VAULT_ADDR: http://0.0.0.0:8200
-      VAULT_API_ADDR: http://0.0.0.0:8200
-      VAULT_ADDRESS: http://0.0.0.0:8200
-    cap_add:
-      - IPC_LOCK
-    command: vault server -config=/vault/config/vault.json
-    ports:
-      - 8200:8200
-    healthcheck:
-      test:
-        [
-          "CMD-SHELL",
-          "wget --spider http://127.0.0.1:8200/v1/sys/health || exit 1",
-        ]
-      interval: 10s
-      timeout: 5s
-      retries: 3
-
   identity:
     image: ghcr.io/samagrax-rcw/identity:latest
     ports:
       - "3332:3332"
     depends_on:
-      vault:
-        condition: service_healthy
       identity-db:
         condition: service_healthy
     environment:
-      DATABASE_URL: "postgres://postgres:postgres@identity-db:5432/postgres"
-      VAULT_ADDR: "http://vault:8200"
-      # This will be replaced automatically on initialisation 
-      # make compose-init will call setup_vault.sh
-      VAULT_TOKEN: hvs.KxJ6qW2ISXTORHbIs9zy82NF
-      VAULT_BASE_URL: "http://vault:8200/v1"
-      VAULT_ROOT_PATH: "http://vault:8200/v1/kv"
-      VAULT_TIMEOUT: 5000
-      VAULT_PROXY: 'false'
-      SIGNING_ALGORITHM: "RS256"
-      JWKS_URI: 
-      ENABLE_AUTH: "false"
+      - DATABASE_URL=postgres://${IDENTITY_POSTGRES_USER}:${IDENTITY_POSTGRES_PASSWORD}@identity-db:5432/postgres
+      - VAULT_ADDR=${VAULT_ADDR}
+      - VAULT_TOKEN=${VAULT_TOKEN}
+      - VAULT_BASE_URL=${VAULT_BASE_URL}
+      - VAULT_ROOT_PATH=${VAULT_ROOT_PATH}
+      - VAULT_TIMEOUT=${VAULT_TIMEOUT}
+      - VAULT_PROXY=${VAULT_PROXY}
+      - SIGNING_ALGORITHM=${SIGNING_ALGORITHM}
+      - JWKS_URI=${JWKS_URI}
+      - ENABLE_AUTH=${ENABLE_AUTH}
     healthcheck:
       test:
         [ "CMD-SHELL", "curl -f http://localhost:3332/health || exit 1" ]
@@ -57,8 +28,8 @@ services:
   identity-db:
     image: postgres:12.1-alpine
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
+      - POSTGRES_USER=${IDENTITY_POSTGRES_USER}
+      - POSTGRES_PASSWORD=${IDENTITY_POSTGRES_PASSWORD}
     volumes:
       - ./data/identity-db:/var/lib/postgresql/dataroot
     healthcheck:
@@ -77,10 +48,10 @@ services:
       identity:
         condition: service_healthy
     environment:
-      DATABASE_URL: "postgres://postgres:postgres@schema-db:5432/postgres"
-      IDENTITY_BASE_URL: "http://identity:3332"
-      JWKS_URI: ""
-      ENABLE_AUTH: "false"
+      - DATABASE_URL=postgres://${SCHEMA_POSTGRES_USER}:${SCHEMA_POSTGRES_PASSWORD}@schema-db:5432/postgres
+      - IDENTITY_BASE_URL=${IDENTITY_BASE_URL}
+      - JWKS_URI=${JWKS_URI}
+      - ENABLE_AUTH=${ENABLE_AUTH}
     healthcheck:
       test:
         [ "CMD-SHELL", "curl -f http://localhost:3333/health || exit 1" ]
@@ -91,8 +62,8 @@ services:
   schema-db:
     image: postgres:12.1-alpine
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
+      - POSTGRES_USER=${SCHEMA_POSTGRES_USER}
+      - POSTGRES_PASSWORD=${SCHEMA_POSTGRES_PASSWORD}
     volumes:
       - ./data/cred-schema-ms-db:/var/lib/postgresql/data
     healthcheck:
@@ -113,12 +84,12 @@ services:
       schema:
         condition: service_healthy
     environment:
-      DATABASE_URL: "postgres://postgres:postgres@credential-db:5432/postgres"
-      IDENTITY_BASE_URL: "http://identity:3332"
-      SCHEMA_BASE_URL: "http://schema:3333"
-      CREDENTIAL_SERVICE_BASE_URL: 
-      JWKS_URI: ""
-      ENABLE_AUTH: "false"
+      - DATABASE_URL=postgres://${CREDENTIAL_POSTGRES_USER}:${CREDENTIAL_POSTGRES_PASSWORD}@credential-db:5432/postgres
+      - IDENTITY_BASE_URL=${IDENTITY_BASE_URL}
+      - SCHEMA_BASE_URL=${SCHEMA_BASE_URL}
+      - CREDENTIAL_SERVICE_BASE_URL=${CREDENTIAL_SERVICE_BASE_URL}
+      - JWKS_URI=${JWKS_URI}
+      - ENABLE_AUTH=${ENABLE_AUTH}
     healthcheck:
       test:
         [ "CMD-SHELL", "curl -f http://localhost:3000/health || exit 1" ]
@@ -129,8 +100,8 @@ services:
   credential-db:
     image: postgres:12.1-alpine
     environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_USER=${CREDENTIAL_POSTGRES_USER}
+      - POSTGRES_PASSWORD=${CREDENTIAL_POSTGRES_PASSWORD}
     volumes:
       - ./data/credential-ms-db:/var/lib/postgresql/data
     healthcheck:

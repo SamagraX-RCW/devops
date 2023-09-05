@@ -1,0 +1,4 @@
+---
+- name: Join Swarm as a worker
+  command: docker swarm join --token {{ worker_token.stdout_lines | join('') }} {{ swarm_master_ip_address }}:2377
+  register: worker

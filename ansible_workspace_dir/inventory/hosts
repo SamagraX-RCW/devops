@@ -1,11 +1,5 @@
-[dev]
-# Your server's IP goes here
-localhost
+# your master node IP address goes here
+[masters]
 
-[all:vars]
-ansible_user=root
-
-# To run ansible playbooks locally, comment the former lines and uncomment the following 
-
-# localhost 
-# ansible_connection=local
+# your worker node IP address goes here
+[workers]

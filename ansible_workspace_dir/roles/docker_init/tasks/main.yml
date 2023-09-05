@@ -1,0 +1,7 @@
+---
+- import_tasks: install_aptitude.yml
+- import_tasks: install_required_packages.yml
+- import_tasks: docker_gpg_key.yml
+- import_tasks: add_docker_repo.yml
+- import_tasks: install_docker_ce.yml
+- import_tasks: install_docker_module.yml

@@ -1,0 +1,46 @@
+---
+- name: Install Services
+  hosts: master
+  become: true
+  tasks:
+    - name: Create devops directory
+      file:
+        path: ~/devops
+        state: directory
+        mode: 0755
+
+    - name: Copy bash script(install services)
+      copy:
+        src: install_services.sh
+        dest: ~/devops/install_services.sh
+        mode: 0755
+
+    - name: Copy bash script(vault init)
+      copy:
+        src: setup_vault.sh
+        dest: ~/devops/setup_vault.sh
+        mode: 0755
+
+    - name: Copy compose files
+      copy:
+        src: docker-compose.yml
+        dest: ~/devops/docker-compose.yml
+        mode: 0755
+    
+    - name: Copy rest files
+      copy:
+        src: ./nginx_config/nginx.conf
+        dest: ~/devops/nginx_config/nginx.conf
+        mode: 0755
+
+    - name: Make it executable
+      command: chmod +x ~/devops/install_jenkins_vault_registry.sh
+
+    - name: Make it executable
+      command: chmod +x ~/devops/setup_vault.sh
+
+    - name: Run the script
+      command: ~/devops/install_jenkins_vault_registry.sh
+
+    - name: Run the script
+      command: ~/devops/setup_vault.sh

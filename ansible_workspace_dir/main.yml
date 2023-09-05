@@ -1,5 +1,37 @@
 ---
-# - hosts: "app_north_virginia_lex_dev"
+- name: Initialize Swarm
+  hosts: localhost
+  gather_facts: False
+  vars_files:
+    - vars/main.yml
+  roles:
+    - swarm_init
+
+- name: Install Docker
+  become: yes
+  hosts: all
+  gather_facts: True
+  roles:
+    - docker_init
+
+- name: Join Swarm Managers
+  become: yes
+  hosts: masters
+  gather_facts: True
+  vars_files:
+    - vars/main.yml
+  roles:
+    - swarm_manager_init
+
+- name: Join Swarm Workers
+  become: yes
+  hosts: workers
+  gather_facts: True
+  vars_files:
+    - vars/main.yml
+  roles:
+    - swarm_workers_init
+
 - hosts: "{{ deploy_host_name }}"
   become: yes
   strategy: free

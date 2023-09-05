@@ -1,0 +1,6 @@
+---
+- import_tasks: init_swarm.yml
+- import_tasks: get_master_token.yml
+- import_tasks: get_worker_token.yml
+- import_tasks: deploy_overlay_network.yml
+
